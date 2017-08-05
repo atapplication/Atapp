@@ -1,0 +1,13 @@
+.contentbody label.error {
+	float: none;
+	color: red;
+	padding-left: .5em;
+	vertical-align: top;
+}
+
+.contentbody label.requiredLabel {
+	float: none;
+	color: orange;
+	padding-left: .5em;
+	vertical-align: middle;
+}

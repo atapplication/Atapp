@@ -1,0 +1,143 @@
+/* Menu CSS */
+#cssmenu,#cssmenu>ul {
+	background:  url(images/highlight-bg. png) repeat;
+	padding-bottom: 3px;
+	
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 100;
+	
+}
+
+#cssmenu:before,#cssmenu:after,#cssmenu>ul:before,#cssmenu>ul:after {
+	content: '';
+	display: table;
+}
+
+#cssmenu:after,#cssmenu>ul:after {
+	clear: both;
+}
+
+#cssmenu {
+	zoom: 1;
+}
+
+#cssmenu>ul {
+	background: url(images/menu-bg.png) repeat;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+#cssmenu>ul li {
+	margin: 0;
+	padding: 0;	
+	list-style: none;
+	color: #fff;
+	
+}
+
+#cssmenu>ul>li {
+	float: left;
+	position: relative;
+	
+}
+
+#cssmenu>ul>li>a {
+	padding: 5px 15px;
+	display: block;
+	color: white;
+	font-size: 12px;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow: 0 -1px 0 #9e3825;
+	text-shadow: 0 -1px 0 rgba(116, 37, 2, .70);
+	line-height: 18px;
+}
+
+#cssmenu>ul>li:hover>a {
+	color: black;
+	background: #ADD8E6;
+	text-shadow: 0 -1px 0 #97321f;
+	text-shadow: 0 -1px 0 rgba(122, 42, 26, .64);
+}
+
+#cssmenu>ul>li>a>span {
+	line-height: 18px;
+}
+
+#cssmenu>ul>li.active>a,#cssmenu>ul>li>a:active {
+	background: url(images/active.png) repeat;
+}
+
+/* Childs */
+#cssmenu>ul ul {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 120px;
+	margin-left:20%;
+	background: url(images/highlight-bg.png) repeat;
+	margin: 0;
+	padding: 0;
+	z-index: -1;
+	-webkit-transition: all .35s .2s ease-in-out;
+	-moz-transition: all .35s .2s ease-in-out;
+	-ms-transition: all .35s .2s ease-in-out;
+	transition: all .35s .2s ease-in-out;
+}
+
+#cssmenu>ul li:hover ul {
+	opacity: 1;
+	visibility: visible;
+	margin: 0;
+	color: #000;
+	z-index: 2;
+	top: 38px;
+	left: 0;
+}
+
+#cssmenu>ul ul:before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	width: 100%;
+	height: 20px;
+	background: transparent;
+}
+
+#cssmenu>ul ul li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	color: white;
+	
+}
+
+#cssmenu>ul ul li a {
+	
+	padding: 7px 17px;
+	display: block;
+	color:blue;
+	font-size: 11px;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: 150px;
+	border-left: 4px solid transparent;
+	-webkit-transition: all .35s ease-in-out;
+	-moz-transition: all .35s ease-in-out;
+	-ms-transition: all .35s ease-in-out;
+	transition: all .35s ease-in-out;
+	text-shadow: 0 1px 0 white;
+}
+
+#cssmenu>ul ul li a:hover {
+	border-left: 4px solid #de553b;
+	background:;
+	color: black;
+	text-shadow: 0 1px 0 black;
+}
+
+#cssmenu>ul ul li a:active {
+	background: url(images/menu-bg.png) repeat;
+}
