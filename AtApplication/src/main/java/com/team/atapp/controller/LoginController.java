@@ -1,5 +1,6 @@
 package com.team.atapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.atapp.domain.AdminUser;
+import com.team.atapp.domain.TblUserInfo;
 import com.team.atapp.logger.AtLogger;
+import com.team.atapp.service.ConsumerInstrumentService;
 import com.team.atapp.service.LoginService;
 
 @Controller
@@ -21,6 +26,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private ConsumerInstrumentService consumerInstrumentServiceImpl;
 		
 	
 	@RequestMapping(value= {"/"})
@@ -28,6 +36,63 @@ public class LoginController {
 		return "index";
 	}
 	
+	@RequestMapping(value= {"/onSubmitlogin"}, method=RequestMethod.POST)
+	public ModelAndView loginUser(HttpServletRequest request, HttpSession session, HttpServletResponse response,RedirectAttributes redirectAttributes) throws Exception{
+		logger.debug("in /onSubmitlogin");
+		String username = request.getParameter("uname") == null ? "" : request
+				.getParameter("uname");
+		String password = request.getParameter("pass") == null ? "" : request
+				.getParameter("pass");
+		
+        AdminUser adminUser=null;
+        boolean needToChangePwd=false;
+		
+        if (username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+        	redirectAttributes.addFlashAttribute("status",
+					"<div class='failure'>Enter User Name/Password!!</div");
+			return new ModelAndView("redirect:/");
+		} else {			
+			adminUser=loginService.getLoginUser(username,password);
+		}
+        
+        if(adminUser!=null){
+        	session.setAttribute("adminUser", adminUser);
+        	         	
+        }
+        
+        
+        if (adminUser!=null) {
+			if (adminUser.getPwdChangedDate()== null || adminUser.getPwdChangedDate().equals("")) {
+				needToChangePwd = true;
+			}
+		}
+        
+        if (needToChangePwd) {
+			session.setAttribute("username", username);
+			session.setAttribute("password", password);
+				return new ModelAndView("redirect:/changePasswordReq");
+			
+		} 
+        
+        if(adminUser!=null){
+        	 	return new ModelAndView("redirect:/adminHome");
+        	
+        }else{
+        	session.setAttribute("adminUser", "");
+        	redirectAttributes.addFlashAttribute("status","<div class='failure'>Invalid User Name/Password !</div");
+        	return new ModelAndView("redirect:/");
+        }
+		
+	
+	}
+	
+	 @RequestMapping(value= {"/adminHome"}, method=RequestMethod.GET)
+	 public String home(Map<String,Object> map) throws Exception{
+		List<TblUserInfo> userInfos= consumerInstrumentServiceImpl.getUserInfosCount();
+		  map.put("userInfos",userInfos);
+				 return "AdminView";
+	    	
+	}
 	
 	@RequestMapping(value= {"/inValid"})
 	public String inValidCredentials(){
@@ -39,14 +104,6 @@ public class LoginController {
 		return "forgotPassword";
 	}
 	
-		
-	@RequestMapping(value= {"/adminHome"}, method=RequestMethod.GET)
-	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws Exception{
-	   	return new ModelAndView("AdminView");
-		    	
-	}
-		 
-		 
 		 
 		
 		 

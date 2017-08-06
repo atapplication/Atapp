@@ -79,7 +79,7 @@
 		</property>
 	</bean>
 	
-	<!-- <bean id="propertyConfigurer"
+	 <bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -87,7 +87,7 @@
 			</list>
 		</property>
 	</bean>
-	 -->
+	 
 <bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"

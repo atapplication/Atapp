@@ -12,10 +12,19 @@ public class BaseResponseDTO implements Serializable {
 
 	
 	private String statusCode;
+	private String statusDesc;
 	private String apiToken;
 	private String accessToken;
 	private String baseToken;
 	private Date accessTokenExpDate;
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
 	private Date baseTokenExpDate;
 
 	

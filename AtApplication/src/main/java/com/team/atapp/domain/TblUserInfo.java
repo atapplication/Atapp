@@ -32,6 +32,19 @@ public class TblUserInfo implements Serializable {
 	private String referralCode;
 
 	private String status;
+	
+	
+	private String usertype;
+
+	
+
+	public String getUsertype() {
+		return usertype;
+	}
+
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
 
 	private String uname;
 

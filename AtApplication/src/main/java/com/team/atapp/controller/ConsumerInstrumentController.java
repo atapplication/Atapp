@@ -74,6 +74,7 @@ public class ConsumerInstrumentController {
 			
     				userLoginDTO = consumerInstrumentServiceImpl.mobileLoginAuth(obj.get("usertype").toString(),obj.get("mobilenumber").toString(),obj.get("password").toString());
     				
+    				    				
     				httpHeaders.add(AtAppConstants.HTTP_HEADER_TOKEN_NAME, userLoginDTO.getAccessToken());
     				httpHeaders.add(AtAppConstants.HTTP_HEADER_BASE_TOKEN_NAME, userLoginDTO.getBaseToken());
     				
@@ -88,7 +89,7 @@ public class ConsumerInstrumentController {
 					}catch(Exception e){
 						logger.error("Exception in controller for /mobileLoginAuth",e);
 					}
-					
+										
 					String response = JsonUtil.objToJson(userLoginDTO);
 			
 					responseEntity = new ResponseEntity<String>(response,httpHeaders, HttpStatus.OK);
@@ -96,11 +97,13 @@ public class ConsumerInstrumentController {
 			}else{
 				responseEntity = new ResponseEntity<String>("Any or all in usertype/mobile#/pwd null",HttpStatus.EXPECTATION_FAILED);
 			}
-		}catch(AtAppException e) {
-			logger.errorException(e, e.getMessage());
-			userLoginDTO.setStatusCode(e.getHttpStatus().toString());
+		}catch(AtAppException ae) {
+			logger.debug("IN contoller catch block /mobileLoginAuth");
+			userLoginDTO=new UserLoginDTO();
+			userLoginDTO.setStatusDesc(ae.getMessage());
+			userLoginDTO.setStatusCode(ae.getHttpStatus().toString());
 			String response = JsonUtil.objToJson(userLoginDTO);
-			responseEntity = new ResponseEntity<String>(response, e.getHttpStatus());
+			responseEntity = new ResponseEntity<String>(response, ae.getHttpStatus());
 		}
 		return responseEntity;
 	}
@@ -133,11 +136,13 @@ public class ConsumerInstrumentController {
 				logger.error("Exception in controller for /getRefreshToken",e);
 			}
 			responseEntity = new ResponseEntity<String>(response,httpHeaders, HttpStatus.OK);
-		}catch(AtAppException e) {
-			logger.errorException(e, e.getMessage());
-			userLoginDTO.setStatusCode(e.getHttpStatus().toString());
+		}catch(AtAppException ae) {
+			logger.debug("IN contoller catch block /getRefreshToken");
+			userLoginDTO=new UserLoginDTO();
+			userLoginDTO.setStatusDesc(ae.getMessage());
+			userLoginDTO.setStatusCode(ae.getHttpStatus().toString());
 			String response = JsonUtil.objToJson(userLoginDTO);
-			responseEntity = new ResponseEntity<String>(response, e.getHttpStatus());
+			responseEntity = new ResponseEntity<String>(response, ae.getHttpStatus());
 		}
 		return responseEntity;
 	}

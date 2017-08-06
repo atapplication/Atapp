@@ -18,7 +18,7 @@ public class AtAppConstants {
 	public static final String IND_A = "A";
 	public static final String IND_D = "D";
 	
-	// MIGHTY Config
+	// Atapp key Config
 	
 	public static final String HTTP_HEADER_TOKEN_NAME = "X-ACCESS-TOKEN";
 	public static final String HTTP_HEADER_BASE_TOKEN_NAME = "X-BASE-TOKEN";

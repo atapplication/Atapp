@@ -128,7 +128,7 @@ function validate() {
   <div class="login-box-body">
     <p class="login-box-msg"><b>Please Sign-in</b></p>
 
-    <form action="adminLogin" name="user_validation_form" id="user_validation_form" method="post" onsubmit="return validate()">
+    <form action="onSubmitlogin" name="user_validation_form" id="user_validation_form" method="post" onsubmit="return validate()">
     
 			      <div class="form-group has-feedback">
 			      	<input type="text" name="uname" id="uname" class="form-control" placeholder="Username"/>
