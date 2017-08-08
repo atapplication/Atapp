@@ -27,6 +27,10 @@ public class TblUserInfo implements Serializable {
 	private String emailId;
 
 	private String password;
+	
+	@Column(name="loginotp")
+	private String loginOTP;
+	
 
 	@Column(name="referral_code")
 	private String referralCode;
@@ -70,9 +74,19 @@ public class TblUserInfo implements Serializable {
 	public String getContactnumber() {
 		return this.contactnumber;
 	}
+	
+	
 
 	public void setContactnumber(String contactnumber) {
 		this.contactnumber = contactnumber;
+	}
+
+	public String getLoginOTP() {
+		return loginOTP;
+	}
+
+	public void setLoginOTP(String loginOTP) {
+		this.loginOTP = loginOTP;
 	}
 
 	public Date getCreateddt() {

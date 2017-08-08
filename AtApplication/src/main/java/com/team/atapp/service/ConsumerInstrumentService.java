@@ -20,5 +20,9 @@ public interface ConsumerInstrumentService {
 	public List<TblUserInfo> getUserInfosCount()throws AtAppException;
 
 	public List<TblUserInfo> getUserInfos()throws AtAppException;
+
+	public TblUserInfo getUserById(String userId)throws AtAppException;
+
+	public TblUserInfo updateUser(TblUserInfo userInfo)throws AtAppException;
 	
 }

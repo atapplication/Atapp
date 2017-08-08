@@ -53,7 +53,6 @@ public class AtAppException extends RuntimeException {
 	
 	public AtAppException(String errorMessage, HttpStatus httpStatus) {
 		super(errorMessage);
-		logger.debug("httpstatus code",httpStatus);
 		this.httpStatus = httpStatus;
 	}
 }

@@ -126,10 +126,12 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 
 	public UserLoginDTO getRefreshTokenOnBaseToken() throws AtAppException {
-		TblAtappKeyConfig atappKeyConfig = atappKeyConfigDao.getKeyConfigValue(AtAppConstants.KEY_ATAPP_MOBILE);
 		UserLoginDTO userLoginDTO=null;
+		try{
 		
-		if(null != atappKeyConfig && (atappKeyConfig.getIs_Enabled() != null && 
+			TblAtappKeyConfig atappKeyConfig = atappKeyConfigDao.getKeyConfigValue(AtAppConstants.KEY_ATAPP_MOBILE);
+		
+			if(null != atappKeyConfig && (atappKeyConfig.getIs_Enabled() != null && 
 				atappKeyConfig.getIs_Enabled().equalsIgnoreCase(AtAppConstants.IND_Y))) {
 			
 			userLoginDTO=new UserLoginDTO();
@@ -153,8 +155,10 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 			userLoginDTO.setBaseToken(newBaseToken.getBaseToken());
 			userLoginDTO.setBaseTokenExpDate(newBaseToken.getBaseTokenExpDate());
 						
+			}
+		}catch(Exception e){
+			throw new AtAppException("Getting problem while renewing the token",HttpStatus.EXPECTATION_FAILED);
 		}
-		
 		return userLoginDTO;
 	}
 
@@ -169,6 +173,18 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 	public List<TblUserInfo> getUserInfos() throws AtAppException {
 		return userInfoDao.getUserInfos();
+	}
+
+
+	public TblUserInfo getUserById(String userId) throws AtAppException {
+		return userInfoDao.getUserById(userId);
+	}
+
+
+
+
+	public TblUserInfo updateUser(TblUserInfo userInfo) throws AtAppException {
+		return userInfoDao.save(userInfo);
 	}
 
 
