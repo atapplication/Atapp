@@ -92,11 +92,11 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 		if(null != atappKeyConfig && (atappKeyConfig.getIs_Enabled()!= null && 
 				atappKeyConfig.getIs_Enabled().equalsIgnoreCase(AtAppConstants.IND_Y))) {
 			
-			//long ttlMillis=TimeUnit.DAYS.toMillis(30);
-			//long ttlBaseMillis=TimeUnit.DAYS.toMillis(60);
+			long ttlMillis=TimeUnit.DAYS.toMillis(30);
+			long ttlBaseMillis=TimeUnit.DAYS.toMillis(60);
 			
-			long ttlMillis=TimeUnit.MINUTES.toMillis(10);
-			long ttlBaseMillis=TimeUnit.MINUTES.toMillis(30);
+			//long ttlMillis=TimeUnit.MINUTES.toMillis(10);
+			//long ttlBaseMillis=TimeUnit.MINUTES.toMillis(30);
 			
 			logger.debug("ttlMillisVal",ttlMillis);
 			logger.debug("ttlBaseMillisVal",ttlBaseMillis);
@@ -185,6 +185,13 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 	public TblUserInfo updateUser(TblUserInfo userInfo) throws AtAppException {
 		return userInfoDao.save(userInfo);
+	}
+
+
+
+
+	public TblUserInfo getUserByEmailId(String emailId) throws AtAppException {
+		return userInfoDao.getUserByEmailId(emailId);
 	}
 
 

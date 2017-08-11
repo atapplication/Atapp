@@ -248,6 +248,7 @@ public class ConsumerInstrumentController {
     				TblUserInfo userInfo=consumerInstrumentServiceImpl.getUserById(obj.get("userId").toString());
     				
     				if(userInfo!=null){
+    					
     					if(userInfo.getLoginOTP().equalsIgnoreCase(obj.get("loginOTP").toString())){
     						statusDto.setStatusCode(HttpStatus.OK.toString());
     						statusDto.setStatusDesc("otp validate successfully");
@@ -263,7 +264,7 @@ public class ConsumerInstrumentController {
     					statusDto.setStatusCode(HttpStatus.NOT_FOUND.toString());
 						statusDto.setStatusDesc("userId not exist in system");
 						String response = JsonUtil.objToJson(statusDto);
-    					responseEntity = new ResponseEntity<String>(response,HttpStatus.NOT_FOUND);
+    					responseEntity = new ResponseEntity<String>(response,HttpStatus.EXPECTATION_FAILED);
     				}
     				
     				
@@ -320,6 +321,13 @@ public class ConsumerInstrumentController {
     				TblUserInfo userInfo=consumerInstrumentServiceImpl.getUserById(obj.get("userId").toString());
     				
     				if(userInfo!=null){
+    					TblUserInfo user=consumerInstrumentServiceImpl.getUserByEmailId(obj.get("emailId").toString());
+    					if(user.getEmailId().equalsIgnoreCase(obj.get("emailId").toString())){
+    						statusDto.setStatusCode(HttpStatus.CONFLICT.toString());
+	    					statusDto.setStatusDesc("emailId already exist");
+	    					String response = JsonUtil.objToJson(statusDto);
+	    					responseEntity = new ResponseEntity<String>(response,HttpStatus.CONFLICT);
+    					}else{
     						userInfo.setEmailId(obj.get("emailId").toString());
     						userInfo.setReferralCode(obj.get("referralCode").toString());
     						userInfo.setUname(obj.get("username").toString());
@@ -336,7 +344,7 @@ public class ConsumerInstrumentController {
  	    						String response = JsonUtil.objToJson(statusDto);
  	    						responseEntity = new ResponseEntity<String>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     						 }
-    						
+    					}	
     				}else{
     					statusDto.setStatusCode(HttpStatus.NOT_FOUND.toString());
 						statusDto.setStatusDesc("userId not exist in system");

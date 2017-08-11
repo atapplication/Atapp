@@ -24,5 +24,7 @@ public interface ConsumerInstrumentService {
 	public TblUserInfo getUserById(String userId)throws AtAppException;
 
 	public TblUserInfo updateUser(TblUserInfo userInfo)throws AtAppException;
+
+	public TblUserInfo getUserByEmailId(String emailId)throws AtAppException;
 	
 }
