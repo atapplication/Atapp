@@ -31,7 +31,7 @@ public class SMSServiceImpl implements SMSService {
 				String message="";
 				
 				if(otp!=null && !otp.isEmpty()){
-					user.setLoginOTP(otp);
+					user.setLoginotp(otp);
 					u=userInfoDao.save(user);
 				}else{
 					throw new AtAppException("otp not created in system ", HttpStatus.EXPECTATION_FAILED);
@@ -41,7 +41,7 @@ public class SMSServiceImpl implements SMSService {
 					throw new AtAppException("otp not updated in system ", HttpStatus.EXPECTATION_FAILED);
 				}
 				
-				message=GetMessages.getLoginOtpMsg(u.getLoginOTP());
+				message=GetMessages.getLoginOtpMsg(u.getLoginotp());
 				
 				try{
 					SendSMS sendSMS = SendSMSFactory.getSMSInstance();

@@ -7,6 +7,8 @@ public class StatusDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String statusCode;
 	private String statusDesc;
+	
+	
 	public String getStatusCode() {
 		return statusCode;
 	}

@@ -15,11 +15,11 @@ public class SendSMSATAPP implements Runnable, SendSMS {
 	// ------- send to single
 	String postData = "";
 	String retval = "";
-	String User = "ananthan";
-	String passwd = "welcome";
+	String User = "wheelcare";
+	String passwd = "Wheelcare@3210";
 	String mobilenumber;
 	String[] mobilenumbers;
-	String sid = "NETFSH";
+	String sid = "WHEELC";
 	String templateid = "174";
 	String working_key = "A409ae6c47826e9a53035ec5ee98f56f4";
 	String api="http";

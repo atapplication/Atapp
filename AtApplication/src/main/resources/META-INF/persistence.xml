@@ -9,6 +9,8 @@
 		<class>com.team.atapp.domain.AdminUser</class>
 		<class>com.team.atapp.domain.Role</class>
 		<class>com.team.atapp.domain.TblAtappKeyConfig</class>
+		<class>com.team.atapp.domain.TblServiceProvider</class>
+		<class>com.team.atapp.domain.TblUserCarInfo</class>
 		<class>com.team.atapp.domain.TblUserInfo</class>
 		
 

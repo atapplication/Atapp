@@ -3,6 +3,7 @@ package com.team.atapp.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -24,36 +25,38 @@ public class TblUserInfo implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createddt;
 
+	public String getOtpStatus() {
+		return otpStatus;
+	}
+
+	public void setOtpStatus(String otpStatus) {
+		this.otpStatus = otpStatus;
+	}
+
 	private String emailId;
 
+	private String loginotp;
+	
+	@Column(name="otp_status")
+	private String otpStatus;
+
 	private String password;
-	
-	@Column(name="loginotp")
-	private String loginOTP;
-	
 
 	@Column(name="referral_code")
 	private String referralCode;
 
 	private String status;
-	
-	
-	private String usertype;
-
-	
-
-	public String getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
 
 	private String uname;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateddt;
+
+	private String usertype;
+
+	//bi-directional many-to-one association to TblUserCarInfo
+	@OneToMany(mappedBy="tblUserInfo")
+	private List<TblUserCarInfo> tblUserCarInfos;
 
 	//bi-directional many-to-one association to Role
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -74,19 +77,9 @@ public class TblUserInfo implements Serializable {
 	public String getContactnumber() {
 		return this.contactnumber;
 	}
-	
-	
 
 	public void setContactnumber(String contactnumber) {
 		this.contactnumber = contactnumber;
-	}
-
-	public String getLoginOTP() {
-		return loginOTP;
-	}
-
-	public void setLoginOTP(String loginOTP) {
-		this.loginOTP = loginOTP;
 	}
 
 	public Date getCreateddt() {
@@ -103,6 +96,14 @@ public class TblUserInfo implements Serializable {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public String getLoginotp() {
+		return this.loginotp;
+	}
+
+	public void setLoginotp(String loginotp) {
+		this.loginotp = loginotp;
 	}
 
 	public String getPassword() {
@@ -143,6 +144,36 @@ public class TblUserInfo implements Serializable {
 
 	public void setUpdateddt(Date updateddt) {
 		this.updateddt = updateddt;
+	}
+
+	public String getUsertype() {
+		return this.usertype;
+	}
+
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
+
+	public List<TblUserCarInfo> getTblUserCarInfos() {
+		return this.tblUserCarInfos;
+	}
+
+	public void setTblUserCarInfos(List<TblUserCarInfo> tblUserCarInfos) {
+		this.tblUserCarInfos = tblUserCarInfos;
+	}
+
+	public TblUserCarInfo addTblUserCarInfo(TblUserCarInfo tblUserCarInfo) {
+		getTblUserCarInfos().add(tblUserCarInfo);
+		tblUserCarInfo.setTblUserInfo(this);
+
+		return tblUserCarInfo;
+	}
+
+	public TblUserCarInfo removeTblUserCarInfo(TblUserCarInfo tblUserCarInfo) {
+		getTblUserCarInfos().remove(tblUserCarInfo);
+		tblUserCarInfo.setTblUserInfo(null);
+
+		return tblUserCarInfo;
 	}
 
 	public Role getRoleBean() {

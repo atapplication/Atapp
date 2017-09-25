@@ -11,8 +11,8 @@ import com.team.atapp.domain.TblUserInfo;
 
 public interface UserInfoDao extends JpaRepository<TblUserInfo, Serializable> {
 
-	@Query("Select u From TblUserInfo u where u.contactnumber=:contactnumber and u.password=:password and u.status='Y'")
-	TblUserInfo getUserByContAndPwd(@Param("contactnumber") String contactnumber,@Param("password") String password);
+	@Query("Select u From TblUserInfo u where u.contactnumber=:contactnumber and u.status='Y'")
+	TblUserInfo getUserByContAndPwd(@Param("contactnumber") String contactnumber);
 
 	@Query("Select count(u.id) From TblUserInfo u")
 	List<TblUserInfo> getUserInfosCount();
