@@ -38,7 +38,7 @@ public class LoginController {
 	
 	@RequestMapping(value= {"/onSubmitlogin"}, method=RequestMethod.POST)
 	public ModelAndView loginUser(HttpServletRequest request, HttpSession session, HttpServletResponse response,RedirectAttributes redirectAttributes) throws Exception{
-		
+		logger.debug("in /onSubmitlogin");
 		String username = request.getParameter("uname") == null ? "" : request
 				.getParameter("uname");
 		String password = request.getParameter("pass") == null ? "" : request
