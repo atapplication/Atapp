@@ -17,8 +17,11 @@ public interface ServiceProviderDao extends JpaRepository<TblServiceProvider, Se
 	@Query("Select sp From TblServiceProvider sp where sp.id=:id")
 	TblServiceProvider getSPById(@Param("id") String id);
 
-	@Query("Select sp From TblServiceProvider sp where sp.openStatus='unfreeze'")
+	@Query("Select sp From TblServiceProvider sp")
 	List<TblServiceProvider> getSpDetails();
+
+	@Query("Select sp From TblServiceProvider sp where sp.emailId=:emailId")
+	TblServiceProvider getSpByEmailId(@Param("emailId") String emailId);
 
 
 }

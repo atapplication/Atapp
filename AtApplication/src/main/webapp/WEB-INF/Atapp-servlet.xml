@@ -88,12 +88,27 @@
 		</property>
 	</bean>
 	 
-<bean id="jspViewResolver"
+	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/Atappviews/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+		  <property name="host" value="smtp.gmail.com" />  
+		    <property name="username" value="wheelccare7@gmail.com" />  
+		    <property name="password" value="HPE@12345" />  
+		    <property name="javaMailProperties">  
+		        <props>  
+		              <prop key="mail.smtp.auth">true</prop>  
+		              <prop key="mail.smtp.socketFactory.port">465</prop>  
+		              <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>  
+		              <prop key="mail.smtp.port">465</prop>  
+		        </props>  
+		    </property>  
+   </bean> 
 
 </beans>

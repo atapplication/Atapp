@@ -65,5 +65,84 @@ public class DateUtil {
 		}
 
 		
+		public static String changeDateFromatToSqlFormat(Date anyDate) {
+			// System.out.println("Got Here");
+			try {
+				String naturalFormat = "";
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("yyyy-MM-dd");
+				naturalFormat = formatter.format(anyDate);
+
+				// System.out.println("Date" + naturalFormat);
+				return naturalFormat;
+			} catch (Exception e) {
+				// System.out.println("Error" + e);
+				return null;
+			}
+		}
+		
+		
+		public static Date sqlFormatToDate(String sqlFormat) {
+			Date dateSqlDate = null;
+			try {
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("yyyy-MM-dd");
+				dateSqlDate = formatter.parse(sqlFormat);
+
+				return dateSqlDate;
+			} catch (Exception e) {
+				System.out.println("Error here" + e);
+				return dateSqlDate;
+			}
+		}
+		
+		public static Date sqlFormatToDate1(String sqlFormat) {
+			Date dateSqlDate = null;
+			try {
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				dateSqlDate = formatter.parse(sqlFormat);
+
+				return dateSqlDate;
+			} catch (Exception e) {
+				System.out.println("Error here" + e);
+				return dateSqlDate;
+			}
+		}
+		
+		public static String changeDateFromat(Date sqlFormat) {
+			// System.out.println("Got Here");
+			try {
+				String naturalFormat = "";
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("yyyy-MM-dd");
+				naturalFormat = formatter.format(sqlFormat);
+
+				// System.out.println("Date" + naturalFormat);
+				return naturalFormat;
+			} catch (Exception e) {
+				// System.out.println("Error" + e);
+				return sqlFormat.toString();
+			}
+		}
+		
+		
+		public static String changeDateFromat1(Date sqlFormat) {
+			// System.out.println("Got Here");
+			try {
+				String naturalFormat = "";
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				naturalFormat = formatter.format(sqlFormat);
+
+				// System.out.println("Date" + naturalFormat);
+				return naturalFormat;
+			} catch (Exception e) {
+				// System.out.println("Error" + e);
+				return sqlFormat.toString();
+			}
+		}
+		
+		
 		
 }

@@ -1,8 +1,8 @@
  <%--
-    Document   : User Report
+    Document   : SP Info
     Author     : Vikky
 --%>
-
+ 
  <%@page import="java.util.*"%>
 <%@page import="com.team.atapp.domain.*"%>
 <%@page import="com.team.atapp.dto.*"%>
@@ -12,7 +12,7 @@
  <%@ page buffer = "900kb" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"   pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+
 
 <!DOCTYPE html >
 <html lang="en">
@@ -23,7 +23,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>WheelCare Users</title>
+<title>Service Provider</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/custom_siemens.css" rel="stylesheet">
@@ -45,15 +45,112 @@
 <script src="js/demo.js"></script>
 <script src="js/scroller.js"></script>
 
+<script type="text/javascript">
+	
+		
+
+	 function confirmValidate() {
+		 
+	    var comp= document.getElementById("comp").value;
+	    var spname = document.getElementById("spname").value;
+	    var gst = document.getElementById("gst").value;
+	    var regNo = document.getElementById("regNo").value;
+	    var website = document.getElementById("website").value;
+	    var threeD = document.getElementById("threeD").value;
+	    var manual = document.getElementById("manual").value;
+	    var openTime = document.getElementById("openTime").value;
+	    var closeTime = document.getElementById("closeTime").value;
+	    var email = document.getElementById("email").value;
+	    var contact = document.getElementById("contact").value;
+	    var password = document.getElementById("password").value;
+	    var address = document.getElementById("address").value;
+	    var lati = document.getElementById("lati").value;
+	    var longi = document.getElementById("longi").value;
+	    var slot = document.getElementById("slot").value;
+	    var file = document.getElementById("file").value;
+	   
+	   if(comp==""){
+		   alert("Please Enter Company Name!!");
+		   document.getElementById("comp").focus();
+		  return false; 
+	   }else if(spname==""){
+		   alert("Please Enter Service Provider Name!!");
+		   document.getElementById("spname").focus();
+		  return false; 
+	   }else if(gst==""){
+		   alert("Please Enter GST Name!!");
+		   document.getElementById("gst").focus();
+		  return false; 
+	   }else if(regNo==""){
+		   alert("Please Enter Registration Number!!");
+		   document.getElementById("regNo").focus();
+		  return false; 
+	   }else if(website==""){
+		   alert("Please Enter Website Name!!");
+		   document.getElementById("website").focus();
+		  return false; 
+	   }else if(threeD==""){
+		   alert("Please Enter 3D Service Amount!!");
+		   document.getElementById("threeD").focus();
+		  return false; 
+	   }else if(manual==""){
+		   alert("Please Enter Manual Service Amount!!");
+		   document.getElementById("manual").focus();
+		  return false; 
+	   }else if(openTime==""){
+		   alert("Please Enter Open Time in mulitple of 30 mins or 1 hrs e.g 09:30 or 10:00!");
+		   document.getElementById("openTime").focus();
+		  return false; 
+	   }else if(closeTime==""){
+		   alert("Please Enter Close Time in mulitple of 30 mins or 1 hrs e.g 18:30 or 22:00!!");
+		   document.getElementById("closeTime").focus();
+		  return false; 
+	   }else if(email==""){
+		   alert("Please Enter Email Address!!");
+		   document.getElementById("email").focus();
+		  return false; 
+	   }else if(contact==""){
+		   alert("Please enter contact number will use for login!!");
+		   document.getElementById("contact").focus();
+		  return false; 
+	   }else if(password==""){
+		   alert("Please enter password will use for login!!!");
+		   document.getElementById("password").focus();
+		  return false; 
+	   }else if(address==""){
+		   alert("Please enter address will use to get latitude and longitude!!");
+		   document.getElementById("address").focus();
+		  return false; 
+	   }else if(lati==""){
+		   alert("Please enter latitude based on address!!");
+		   document.getElementById("lati").focus();
+		  return false; 
+	   }else if(longi==""){
+		   alert("Please enter longitude based on address!!");
+		   document.getElementById("longi").focus();
+		  return false; 
+	   } else if(slot==""){
+		   alert("Please assign total service slots to service provide!!");
+		   document.getElementById("slot").focus();
+		  return false; 
+	   }else if(file==""){
+		   alert("Please select the service provider image!!");
+		   document.getElementById("file").focus();
+		  return false; 
+	   }
+		    
+		
+			
+		return true;
+
+	} 
+</script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 						<% AdminUser adminUser=(AdminUser)request.getSession().getAttribute("adminUser");
-						String fname1=("WheelCareUsersList :").concat(new Date().toString()).concat(".csv");
-						String fname2=("WheelCareUsersList :").concat(new Date().toString()).concat(".xls");
-						String fname3=("WheelCareUsersList :").concat(new Date().toString()).concat(".xml");
 						
-						List<TblUserInfo> userInfos=(List<TblUserInfo>)request.getAttribute("userInfos");
 						%>
 	
 <div class="wrapper">  
@@ -118,7 +215,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-                <li><a href="spSubscription"><i class="fa fa-circle-o"></i> <b>Service Provider</b></a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> <b>Service Provider</b></a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -188,32 +285,248 @@
 						<div class="row">
 								<div class="col-sm-8 page-heading mar-top-20">
 								<i class="page-heading-icon"><img src="images/user_icon.png" /></i>
-								<h5 class="text-blue text-semi-bold"><b>WheelCare User</b></h5>
+								<h5 class="text-blue text-semi-bold"><b>Service Provider</b></h5>
 								</div>
 													
 						</div><br/>
 						
-						<div class="row" style="overflow-y: auto;">
-							<div class="col-sm-12 ">	
-							
+						<div class="row">
+							<div class="col-md-12">
 						
-					     	<display:table  class="table table-hover  text-center"  name="<%=userInfos%>" id="row"
-									export="true" requestURI="" defaultsort="1" defaultorder="descending" pagesize="50">
-							<display:column  property="id" title="ID" sortable="true" headerClass="sortable" />
-							<display:column  property="uname" title="UserName" sortable="true"  />
-							<display:column  property="emailId" title="EmailID" sortable="true"  />
-							<display:column  property="contactnumber" title="MobileNo." sortable="true"  />
-							<display:column  property="usertype" title="UserType" sortable="true"  />
-							<display:column  property="status" title="Status" sortable="true"  />
-							<display:column  property="createddt" title="CreatedDate" format="{0,date,dd-MM-yyyy}" sortable="true"  />
+					    <form action="spInfosSubmit"  name="spFormInfo"  enctype="multipart/form-data"
+								style="border: 1px outset grey;border-left: 5px solid grey;text-align:center;max-width:550px;margin:0 auto ;"  
+									onsubmit="return confirmValidate();" method="post">
+								<div class="push-200 login-input-wrap">
 									
-								     		   
-						 	<display:setProperty name="export.csv.filename" value="<%=fname1%>" />
-							<display:setProperty name="export.excel.filename" value="<%=fname2%>" />
-							<display:setProperty name="export.xml.filename" value="<%=fname3%>" /> 
-						</display:table> 
+								
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-group"></i>
+											<label>Comapany Name:</label>
+										</div>
+										
+										<div class="col-md-6">
+											<input type="text" name="comp" id="comp" placeholder="Comapany Name"/>
+									    </div>
+									</div>	
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-user"></i>
+											<label>SP Name:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="spname" id="spname" placeholder="Service provider name"/>
+										</div>
+									
+									</div>	
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-shield"></i>
+											<label>GST Number:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="gst" id="gst" placeholder="GST Number"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-shield"></i>
+											<label>RegistrationNumber:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="regNo" id="regNo" placeholder="Registration Number"/>
+										</div>
+									
+									</div>
+									
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-user"></i>
+											<label>Websites:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="website" id="website" placeholder="Website"/>
+										</div>
+									
+									</div>
+									
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-money"></i>
+											<label>3D Service:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="threeD" id="threeD" placeholder="3D Service Amount"/>
+										</div>
+									
+									</div>
+									
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-money"></i>
+											<label>Manual Service:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="manual" id="manual" placeholder="Manual Service amount"/>
+										</div>
+									
+									</div>
+									
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-clock-o"></i>
+											<label>Open Time:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="openTime" id="openTime" placeholder="Open Time"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-clock-o"></i>
+											<label>Close Time:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="closeTime" id="closeTime" placeholder="Close Time"/>
+										</div>
+									
+									</div>
+									
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-envelope"></i>
+											<label>Email address:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="email" id="email" placeholder="Email address"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-sign-in"></i>
+											<label>Contact Number:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="contact" id="contact" placeholder="Phone Number"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-key"></i>
+											<label>Password:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="password" id="password" placeholder="Password"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-server"></i>
+											<label>Address:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="address" id="address" placeholder="Address"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-server"></i>
+											<label>Latitude:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name=lati id="lati" placeholder="Latitude"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-server"></i>
+											<label>Longitude:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="longi" id="longi" placeholder="Longitude"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+										<div class="col-md-6"><i class="fa fa-sort-numeric-asc"></i>
+											<label>Slot:</label>
+										</div>
+										
+										<div class="col-md-6">
+										  <input type="text" name="slot" id="slot" placeholder="Slot"/>
+										</div>
+									
+									</div>
+									
+									<div class="row mar-top-15">
+									
+									<div class="col-md-6" ><i class="fa fa-upload"></i><label>SP Img:</label>
+									</div>
+									
+									<div class="col-md-6">
+									  <input type="file" name="file" accept="text/plain" id="file"  />
+									  </div>
+										 
+									</div>
+									
+									</div>
+									
+									
+												
+										
+											 
+								
+									<div class="row text-center mar-btm-70">
+										<div class="col-sm-12">
+											<input class="btn btn-primary text-bold fa fa-upload center" type="submit" value="Submit" />
+										</div>
+									 
+									</div>
+									
+									
+								</div>
+							  </form>
 							</div>
 						</div>
+						
+						
 						<a  id="goTop"><i class="fa fa-eject"></i></a>	
 				 </div>
 			</section>	

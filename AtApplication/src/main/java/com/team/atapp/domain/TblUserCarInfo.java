@@ -1,23 +1,9 @@
 package com.team.atapp.domain;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -34,14 +20,15 @@ public class TblUserCarInfo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
-	@Column(name="car_manufacture")
-	private String carManufacture;
+	public String getValidCount() {
+		return validCount;
+	}
 
-	@Column(name="car_name")
-	private String carName;
+	public void setValidCount(String validCount) {
+		this.validCount = validCount;
+	}
 
-	@Column(name="car_type")
-	private String carType;
+	private String active;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_dt")
@@ -49,87 +36,24 @@ public class TblUserCarInfo implements Serializable {
 
 	@Column(name="reg_no")
 	private String regNo;
-	
-	@Column(name="issue")
-	private String issue;
-	
-	@Column(name="comment")
-	private String comment;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="booked_at")
-	private Date bookedAt;
-	
-	public Date getBookedAt() {
-		return bookedAt;
-	}
-
-	public void setBookedAt(Date bookedAt) {
-		this.bookedAt = bookedAt;
-	}
-
-	public String getBookedServiceAmount() {
-		return bookedServiceAmount;
-	}
-
-	public void setBookedServiceAmount(String bookedServiceAmount) {
-		this.bookedServiceAmount = bookedServiceAmount;
-	}
-
-	@Column(name="booked_service_amount")
-	private String bookedServiceAmount;
-	
-	
-	public String getIssue() {
-		return issue;
-	}
-
-	public void setIssue(String issue) {
-		this.issue = issue;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	@Column(name="service_type")
-	private String serviceType;
-
-	public String getServiceType() {
-		return serviceType;
-	}
-
-	public void setServiceType(String serviceType) {
-		this.serviceType = serviceType;
-	}
-
-	@Column(name="service_status")
-	private String serviceStatus;
-	
-	@Column(name="code")
-	private String code;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="slot")
-	private Date slot;
-
-	
-
-	public Date getSlot() {
-		return slot;
-	}
-
-	public void setSlot(Date slot) {
-		this.slot = slot;
-	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="updated_dt")
 	private Date updatedDt;
+
+	private String validity;
+	
+	@Column(name="valid_count")
+	private String validCount;
+
+	//bi-directional many-to-one association to TblBookedCarInfo
+	@OneToMany(mappedBy="tblUserCarInfo")
+	private List<TblBookedCarInfo> tblBookedCarInfos;
+
+	//bi-directional many-to-one association to TblCarModel
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="model_Id")
+	private TblCarModel tblCarModel;
 
 	//bi-directional many-to-one association to TblUserInfo
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -160,28 +84,12 @@ public class TblUserCarInfo implements Serializable {
 		this.id = id;
 	}
 
-	public String getCarManufacture() {
-		return this.carManufacture;
+	public String getActive() {
+		return this.active;
 	}
 
-	public void setCarManufacture(String carManufacture) {
-		this.carManufacture = carManufacture;
-	}
-
-	public String getCarName() {
-		return this.carName;
-	}
-
-	public void setCarName(String carName) {
-		this.carName = carName;
-	}
-
-	public String getCarType() {
-		return this.carType;
-	}
-
-	public void setCarType(String carType) {
-		this.carType = carType;
+	public void setActive(String active) {
+		this.active = active;
 	}
 
 	public Date getCreatedDt() {
@@ -190,13 +98,6 @@ public class TblUserCarInfo implements Serializable {
 
 	public void setCreatedDt(Date createdDt) {
 		this.createdDt = createdDt;
-	}
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	public String getRegNo() {
@@ -207,22 +108,50 @@ public class TblUserCarInfo implements Serializable {
 		this.regNo = regNo;
 	}
 
-	
-
-	public String getServiceStatus() {
-		return serviceStatus;
-	}
-
-	public void setServiceStatus(String serviceStatus) {
-		this.serviceStatus = serviceStatus;
-	}
-
 	public Date getUpdatedDt() {
 		return this.updatedDt;
 	}
 
 	public void setUpdatedDt(Date updatedDt) {
 		this.updatedDt = updatedDt;
+	}
+
+	public String getValidity() {
+		return this.validity;
+	}
+
+	public void setValidity(String validity) {
+		this.validity = validity;
+	}
+
+	public List<TblBookedCarInfo> getTblBookedCarInfos() {
+		return this.tblBookedCarInfos;
+	}
+
+	public void setTblBookedCarInfos(List<TblBookedCarInfo> tblBookedCarInfos) {
+		this.tblBookedCarInfos = tblBookedCarInfos;
+	}
+
+	public TblBookedCarInfo addTblBookedCarInfo(TblBookedCarInfo tblBookedCarInfo) {
+		getTblBookedCarInfos().add(tblBookedCarInfo);
+		tblBookedCarInfo.setTblUserCarInfo(this);
+
+		return tblBookedCarInfo;
+	}
+
+	public TblBookedCarInfo removeTblBookedCarInfo(TblBookedCarInfo tblBookedCarInfo) {
+		getTblBookedCarInfos().remove(tblBookedCarInfo);
+		tblBookedCarInfo.setTblUserCarInfo(null);
+
+		return tblBookedCarInfo;
+	}
+
+	public TblCarModel getTblCarModel() {
+		return this.tblCarModel;
+	}
+
+	public void setTblCarModel(TblCarModel tblCarModel) {
+		this.tblCarModel = tblCarModel;
 	}
 
 	public TblUserInfo getTblUserInfo() {

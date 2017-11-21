@@ -25,18 +25,10 @@ public class TblUserInfo implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createddt;
 
-	public String getOtpStatus() {
-		return otpStatus;
-	}
-
-	public void setOtpStatus(String otpStatus) {
-		this.otpStatus = otpStatus;
-	}
-
 	private String emailId;
 
 	private String loginotp;
-	
+
 	@Column(name="otp_status")
 	private String otpStatus;
 
@@ -104,6 +96,14 @@ public class TblUserInfo implements Serializable {
 
 	public void setLoginotp(String loginotp) {
 		this.loginotp = loginotp;
+	}
+
+	public String getOtpStatus() {
+		return this.otpStatus;
+	}
+
+	public void setOtpStatus(String otpStatus) {
+		this.otpStatus = otpStatus;
 	}
 
 	public String getPassword() {

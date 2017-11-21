@@ -23,7 +23,10 @@ public interface UserInfoDao extends JpaRepository<TblUserInfo, Serializable> {
 	@Query("Select u From TblUserInfo u where u.id=:userId and u.status='Y'")
 	TblUserInfo getUserById(@Param("userId") String userId);
 
+	@Query("Select u From TblUserInfo u where u.emailId=:emailId and u.usertype=:usertype and u.status='Y'")
+	TblUserInfo getUserByEmailId(@Param("emailId") String emailId,@Param("usertype") String usertype);
+
 	@Query("Select u From TblUserInfo u where u.emailId=:emailId and u.status='Y'")
-	TblUserInfo getUserByEmailId(@Param("emailId") String emailId);
+	TblUserInfo getUserEmailId(@Param("emailId") String emailId);
 
 }

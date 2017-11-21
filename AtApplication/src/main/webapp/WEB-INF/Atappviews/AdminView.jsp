@@ -103,6 +103,19 @@
             <i class="fa fa-dashboard"></i> <span><b>Dashboard</b></span>
           </a>
         </li>
+        
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span><b>Subscription</b></span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">1</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+                <li><a href="spSubscription"><i class="fa fa-circle-o"></i> <b>Service Provider</b></a></li>
+          </ul>
+        </li>
         <li class="treeview"> 
           <a href="#">
             <i class="fa fa-files-o"></i>

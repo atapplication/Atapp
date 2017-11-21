@@ -6,9 +6,14 @@
 	<persistence-unit name="AtappPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<non-jta-data-source>java:comp/env/jdbc/AtappDB</non-jta-data-source>
+		<class>com.team.atapp.domain.TblCarModal</class>
 		<class>com.team.atapp.domain.AdminUser</class>
 		<class>com.team.atapp.domain.Role</class>
 		<class>com.team.atapp.domain.TblAtappKeyConfig</class>
+		<class>com.team.atapp.domain.TblBookedCarInfo</class>
+		<class>com.team.atapp.domain.TblCarManufacture</class>
+		<class>com.team.atapp.domain.TblCarModel</class>
+		<class>com.team.atapp.domain.TblHelplineContact</class>
 		<class>com.team.atapp.domain.TblServiceProvider</class>
 		<class>com.team.atapp.domain.TblUserCarInfo</class>
 		<class>com.team.atapp.domain.TblUserInfo</class>

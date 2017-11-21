@@ -1,9 +1,21 @@
 package com.team.atapp.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -20,7 +32,16 @@ public class TblServiceProvider implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
+	@Column(name="3D")
+	private String threeD;
+
 	private String address;
+
+	@Column(name="balancing_alignment_service")
+	private String balancingAlignmentService;
+
+	@Column(name="close_time")
+	private String closeTime;
 
 	private String company;
 
@@ -30,21 +51,8 @@ public class TblServiceProvider implements Serializable {
 
 	@Column(name="display_name")
 	private String displayName;
+
 	
-	@Column(name="website")
-	private String website;
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="effective_at")
-	private Date effectiveAt;
 
 	@Column(name="email_id")
 	private String emailId;
@@ -53,41 +61,21 @@ public class TblServiceProvider implements Serializable {
 	private String gstNum;
 
 	@Lob
-	private byte[] image;
+	private Blob image;
 
 	private String latitude;
 
-	private String loginId;
-
 	private String longitude;
 
-	@Column(name="wheel_alignment_service")
-	private String wheelAlignmentService;
-	
-	@Column(name="wheel_balancing_service")
-	private String wheelBalancingService;
-	
-	public String getWheelAlignmentService() {
-		return wheelAlignmentService;
-	}
-
-	public void setWheelAlignmentService(String wheelAlignmentService) {
-		this.wheelAlignmentService = wheelAlignmentService;
-	}
-
-	public String getWheelBalancingService() {
-		return wheelBalancingService;
-	}
-
-	public void setWheelBalancingService(String wheelBalancingService) {
-		this.wheelBalancingService = wheelBalancingService;
-	}
+	private String manual;
 
 	@Column(name="open_status")
 	private String openStatus;
 
+	@Column(name="open_time")
+	private String openTime;
+
 	private String password;
-		
 
 	@Column(name="person_incharge")
 	private String personIncharge;
@@ -100,15 +88,23 @@ public class TblServiceProvider implements Serializable {
 	@Column(name="registration_num")
 	private String registrationNum;
 
-	
 	private String slots;
 
-	@Column(name="sp_status")
-	private String spStatus;
+
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="temp_freeze_end")
+	private Date tempFreezeEnd;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="temp_freeze_start")
+	private Date tempFreezeStart;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
+
+	private String website;
 
 	//bi-directional many-to-many association to TblUserCarInfo
 	@ManyToMany(mappedBy="tblServiceProviders")
@@ -125,12 +121,38 @@ public class TblServiceProvider implements Serializable {
 		this.id = id;
 	}
 
+	
+
+	public String getThreeD() {
+		return threeD;
+	}
+
+	public void setThreeD(String threeD) {
+		this.threeD = threeD;
+	}
+
 	public String getAddress() {
 		return this.address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getBalancingAlignmentService() {
+		return this.balancingAlignmentService;
+	}
+
+	public void setBalancingAlignmentService(String balancingAlignmentService) {
+		this.balancingAlignmentService = balancingAlignmentService;
+	}
+
+	public String getCloseTime() {
+		return this.closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
 	}
 
 	public String getCompany() {
@@ -157,13 +179,7 @@ public class TblServiceProvider implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public Date getEffectiveAt() {
-		return this.effectiveAt;
-	}
-
-	public void setEffectiveAt(Date effectiveAt) {
-		this.effectiveAt = effectiveAt;
-	}
+	
 
 	public String getEmailId() {
 		return this.emailId;
@@ -181,11 +197,12 @@ public class TblServiceProvider implements Serializable {
 		this.gstNum = gstNum;
 	}
 
-	public byte[] getImage() {
-		return this.image;
+
+	public Blob getImage() {
+		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 
@@ -197,14 +214,6 @@ public class TblServiceProvider implements Serializable {
 		this.latitude = latitude;
 	}
 
-	public String getLoginId() {
-		return this.loginId;
-	}
-
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-
 	public String getLongitude() {
 		return this.longitude;
 	}
@@ -213,12 +222,28 @@ public class TblServiceProvider implements Serializable {
 		this.longitude = longitude;
 	}
 
+	public String getManual() {
+		return this.manual;
+	}
+
+	public void setManual(String manual) {
+		this.manual = manual;
+	}
+
 	public String getOpenStatus() {
 		return this.openStatus;
 	}
 
 	public void setOpenStatus(String openStatus) {
 		this.openStatus = openStatus;
+	}
+
+	public String getOpenTime() {
+		return this.openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
 	}
 
 	public String getPassword() {
@@ -261,8 +286,6 @@ public class TblServiceProvider implements Serializable {
 		this.registrationNum = registrationNum;
 	}
 
-	
-
 	public String getSlots() {
 		return this.slots;
 	}
@@ -271,12 +294,22 @@ public class TblServiceProvider implements Serializable {
 		this.slots = slots;
 	}
 
-	public String getSpStatus() {
-		return this.spStatus;
+	
+
+	public Date getTempFreezeEnd() {
+		return this.tempFreezeEnd;
 	}
 
-	public void setSpStatus(String spStatus) {
-		this.spStatus = spStatus;
+	public void setTempFreezeEnd(Date tempFreezeEnd) {
+		this.tempFreezeEnd = tempFreezeEnd;
+	}
+
+	public Date getTempFreezeStart() {
+		return this.tempFreezeStart;
+	}
+
+	public void setTempFreezeStart(Date tempFreezeStart) {
+		this.tempFreezeStart = tempFreezeStart;
 	}
 
 	public Date getUpdatedAt() {
@@ -285,6 +318,14 @@ public class TblServiceProvider implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String getWebsite() {
+		return this.website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
 	}
 
 	public List<TblUserCarInfo> getTblUserCarInfos() {

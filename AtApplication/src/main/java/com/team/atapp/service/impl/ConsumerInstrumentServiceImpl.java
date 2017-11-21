@@ -12,12 +12,20 @@ import org.springframework.stereotype.Service;
 
 import com.team.atapp.constant.AtAppConstants;
 import com.team.atapp.dao.AtappKeyConfigDao;
+import com.team.atapp.dao.BookedCarInfo;
+import com.team.atapp.dao.CarManufacturerDao;
+import com.team.atapp.dao.CarModelDao;
+import com.team.atapp.dao.HelplineDao;
 import com.team.atapp.dao.RoleDao;
 import com.team.atapp.dao.ServiceProviderDao;
 import com.team.atapp.dao.UserCarInfoDao;
 import com.team.atapp.dao.UserInfoDao;
 import com.team.atapp.domain.Role;
 import com.team.atapp.domain.TblAtappKeyConfig;
+import com.team.atapp.domain.TblBookedCarInfo;
+import com.team.atapp.domain.TblCarManufacture;
+import com.team.atapp.domain.TblCarModel;
+import com.team.atapp.domain.TblHelplineContact;
 import com.team.atapp.domain.TblServiceProvider;
 import com.team.atapp.domain.TblUserCarInfo;
 import com.team.atapp.domain.TblUserInfo;
@@ -57,6 +65,19 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 	@Autowired
 	private ServiceProviderDao serviceProviderDao;
 	
+	@Autowired
+	private CarManufacturerDao carManufactureDao;
+	
+	@Autowired
+	private CarModelDao carModelDao;
+	
+	@Autowired
+	private HelplineDao helplineDao;
+	
+	
+	@Autowired
+	private BookedCarInfo bookedCarInfo;
+	
 	@Transactional
 	public UserLoginDTO mobileLoginAuth(String userType, String mobilenumber, String password)  throws AtAppException{
 		
@@ -69,6 +90,8 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 		if(existinguser!=null){
 			if(existinguser.getPassword().equals(password)){
 				if(existinguser.getOtpStatus()==null ){
+					//existinguser.setPassword(password);
+					//userInfoDao.save(existinguser);
 					userLoginDto.setStatusDesc("otp not verified");
 				}else if(existinguser.getEmailId()==null ){
 					userLoginDto.setStatusDesc("user not registered");	
@@ -79,6 +102,18 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 				}
 				
 				userLoginDto.setUserId(existinguser.getId());
+				
+				/*if(existinguser.getOtpStatus()==null ){
+					userLoginDto.setStatusDesc("otp not verified");
+				}else if(existinguser.getEmailId()==null ){
+					userLoginDto.setStatusDesc("user not registered");	
+				}else if(existinguser.getTblUserCarInfos()==null || existinguser.getTblUserCarInfos().isEmpty()){
+					userLoginDto.setStatusDesc("car not registered");	
+				}else{
+					userLoginDto.setStatusDesc("account already exist");
+				}
+				
+				userLoginDto.setUserId(existinguser.getId());*/
 			}else{
 				throw new AtAppException("InValid Username or password",HttpStatus.NOT_ACCEPTABLE);
 			}
@@ -232,8 +267,8 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 
 
-	public TblUserInfo getUserByEmailId(String emailId) throws AtAppException {
-		return userInfoDao.getUserByEmailId(emailId);
+	public TblUserInfo getUserByEmailId(String emailId,String usertype) throws AtAppException {
+		return userInfoDao.getUserByEmailId(emailId,usertype);
 	}
 
 
@@ -290,6 +325,244 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
   
 		return distance;
 	}
+
+
+
+
+	
+	public void updateSP(TblServiceProvider spInfo) throws AtAppException {
+		serviceProviderDao.save(spInfo);
+		
+	}
+
+
+
+
+	public List<TblCarManufacture> getCarManufacturer() throws AtAppException {
+		return carManufactureDao.getCarManufacturer();
+	}
+
+
+
+
+	public TblCarModel getCarModelById(String id) throws AtAppException {
+		return carModelDao.getCarModelById(id);
+	}
+
+
+
+	
+	public void saveImageDB(TblCarModel carModel) {
+		carModelDao.save(carModel);
+		
+	}
+
+
+
+
+	public TblCarModel getCarModelByName(String carName) throws AtAppException {
+		return carModelDao.getCarModelByName(carName);
+	}
+
+
+
+
+	
+	public void deleteCarInfoByUser(TblUserCarInfo uCar) throws AtAppException {
+		userCarInfoDao.delete(uCar);		
+	}
+
+
+	public List<TblHelplineContact> getHelplineNo() throws AtAppException {
+		return helplineDao.getHelplineNo();
+	}
+
+
+	public TblUserInfo setGeneratedPwd(TblUserInfo userInfo) throws AtAppException {
+		return userInfoDao.save(userInfo);
+	}
+
+
+
+
+	public String getPasswordResetMessage(TblUserInfo userInfo) throws AtAppException {
+		return "Hi "
+				+userInfo.getUname().toLowerCase()	
+				+",<br/><br/>I heard that you forgot your Wheelcare account password. Fear not, we're here to help."
+				+"<br/><br/>I've generated a new password for you below. It has some crazy characters, so I recommend that you change your password after you log back into the Wheelcare mobile app. To change your password, navigate to the 'My Profile' tab and click the Change Password link.<br/><br/> "
+				+"LoginId - "+userInfo.getContactnumber()
+				+"<br/>Password - "+userInfo.getPassword()
+				+"<br/><br/>Much love,"
+				+"<br/>The WheelCare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+		
+	}
+	
+	
+	public String getPasswordResetMessageForSp(TblServiceProvider spinfo) throws AtAppException {
+		return "Hi "
+				+spinfo.getDisplayName().toLowerCase()	
+				+",<br/><br/>I heard that you forgot your Wheelcare account password. Fear not, we're here to help."
+				+"<br/><br/>I've generated a new password for you below. It has some crazy characters, so I recommend that you change your password after you log back into the Wheelcare mobile app. To change your password, navigate to the 'My Profile' tab and click the Change Password link.<br/><br/> "
+				+"LoginId - "+spinfo.getPhoneNumber()
+				+"<br/>Password - "+spinfo.getPassword()
+				+"<br/><br/>Much love,"
+				+"<br/>The WheelCare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+		
+	}
+
+	public List<TblUserCarInfo> getUsersCarByRegNo(String regNo) throws AtAppException {
+		
+		return userCarInfoDao.getUsersCarByRegNo(regNo);
+	}
+
+
+
+
+	public TblBookedCarInfo updateBookedCarInfo(TblBookedCarInfo bookedCar) throws AtAppException {
+		return bookedCarInfo.save(bookedCar);
+	}
+
+
+
+
+	public TblUserInfo getUserEmailId(String emailId) throws AtAppException {
+		// TODO Auto-generated method stub
+		return userInfoDao.getUserEmailId(emailId);
+	}
+
+
+
+
+	
+	public TblServiceProvider getSpByEmailId(String emailId) throws AtAppException {
+		// TODO Auto-generated method stub
+		return serviceProviderDao.getSpByEmailId(emailId);
+	}
+
+
+
+
+
+	public TblServiceProvider setGeneratedPwdForSP(TblServiceProvider spInfo) throws AtAppException {
+		return serviceProviderDao.save(spInfo);
+	}
+
+
+
+
+	
+	public List<TblBookedCarInfo> getBookedCarByspId(String spId,String slot) throws AtAppException {
+		return bookedCarInfo.getBookedCarByspId(spId,slot);
+	}
+
+
+
+
+
+	public String getCarBookedServiceMessage(TblUserInfo userInfo, TblBookedCarInfo bookedCarUpdated) throws AtAppException {
+		return "Heyo "
+				+userInfo.getUname().toLowerCase()	
+				+",<br/><br/>I heard that you just booked a wheelcare car service."
+				+"<br/><br/>Your car booking details are as:"
+				+"<br/><br/>"
+				+"<br/><br/> Car Reg. No : "+bookedCarUpdated.getTblUserCarInfo().getRegNo()
+				+"<br/><br/> Manufacturer : "+bookedCarUpdated.getTblUserCarInfo().getTblCarModel().getTblCarManufacture().getCarManufacture()
+				+"<br/><br/> Model : "+bookedCarUpdated.getTblUserCarInfo().getTblCarModel().getCarModel()
+				+"<br/><br/> Service type : "+bookedCarUpdated.getServiceType()
+				+"<br/><br/>"
+				+"<br/><br/>If you have any questions about anything related to wheelcare services, please contact us at our helpline from the mobile application. You can also email the wheelcare team at wheelccare7@gmail.com"
+				+"<br/><br/>"
+				+"<br/><br/>Much love,"
+				+"<br/>The Wheelcare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+	}
+
+
+	public String getCarCancellationServiceMessage(TblUserInfo userInfo, TblBookedCarInfo bCarInfo)	throws AtAppException {
+		return "Heyo "
+				+userInfo.getUname().toLowerCase()	
+				+",<br/><br/>Your car service has been cancelled."
+				+"<br/><br/>Your car cancelled details are as:"
+				+"<br/><br/>"
+				+"<br/><br/> Car Reg. No : "+bCarInfo.getTblUserCarInfo().getRegNo()
+				+"<br/><br/> Manufacturer : "+bCarInfo.getTblUserCarInfo().getTblCarModel().getTblCarManufacture().getCarManufacture()
+				+"<br/><br/> Model : "+bCarInfo.getTblUserCarInfo().getTblCarModel().getCarModel()
+				+"<br/><br/> Service type : "+bCarInfo.getServiceType()
+				+"<br/><br/>"
+				+"<br/><br/>If you have any questions about anything related to wheelcare services, please contact us at our helpline from the mobile application. You can also email the wheelcare team at wheelccare7@gmail.com"
+				+"<br/><br/>"
+				+"<br/><br/>Much love,"
+				+"<br/>The Wheelcare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+	}
+
+
+
+	public String getCarCompletionServiceMessage(TblUserInfo tblUserInfo, TblBookedCarInfo bookedCar)throws AtAppException {
+		return "Heyo "
+				+tblUserInfo.getUname().toLowerCase()	
+				+",<br/><br/>Your car service has been Completed."
+				+"<br/><br/>Your car completed details are as:"
+				+"<br/><br/>"
+				+"<br/><br/> Car Reg. No : "+bookedCar.getTblUserCarInfo().getRegNo()
+				+"<br/><br/> Manufacturer : "+bookedCar.getTblUserCarInfo().getTblCarModel().getTblCarManufacture().getCarManufacture()
+				+"<br/><br/> Model : "+bookedCar.getTblUserCarInfo().getTblCarModel().getCarModel()
+				+"<br/><br/> Service type : "+bookedCar.getServiceType()
+				+"<br/><br/>"
+				+"<br/><br/>If you have any questions about anything related to wheelcare services, please contact us at our helpline from the mobile application. You can also email the wheelcare team at wheelccare7@gmail.com"
+				+"<br/><br/>"
+				+"<br/><br/>Much love,"
+				+"<br/>The Wheelcare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+	}
+
+
+
+
+	public String getReferMessage(TblUserInfo userInfo,String referralCode) throws AtAppException {
+		return "Hi "
+				+",<br/><br/>You have been referred by your friend <b>"+userInfo.getUname()+"</b> to join wheelcare."
+				+"<br/><br/>"
+				+"<br/><br/>Your referral code is : "+referralCode
+				+"<br/><br/>If you have any questions about anything related to wheelcare services, please contact us at our helpline from the mobile application. You can also email the wheelcare team at wheelccare7@gmail.com"
+				+"<br/><br/>"
+				+"<br/><br/>Much love,"
+				+"<br/>The Wheelcare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+	}
+
+
+
+
+	
+	public String getSpReferMessage(TblServiceProvider spInfo, String referralCode) throws AtAppException {
+		return "Hi "
+				+",<br/><br/>You have been referred by your friend <b>"+spInfo.getDisplayName()+"</b> to join wheelcare."
+				+"<br/><br/>"
+				+"<br/><br/>Your referral code is : "+referralCode
+				+"<br/><br/>If you have any questions about anything related to wheelcare services, please contact us at our helpline from the mobile application. You can also email the wheelcare team at wheelccare7@gmail.com"
+				+"<br/><br/>"
+				+"<br/><br/>Much love,"
+				+"<br/>The Wheelcare Robot"
+				+"<br/><br/><em>I'm a robot and my owners won't let me receive inbound messages. If you have any questions, please send my owners an email at wheelccare7@gmail.com.</em>"; 
+				
+	}
+
+
+
+
+
+
+
+
 
 
 

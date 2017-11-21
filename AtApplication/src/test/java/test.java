@@ -1,13 +1,3 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import com.team.atapp.config.OtherFunctions;
-
 public class test {
 	
 	/*
@@ -48,28 +38,32 @@ public class test {
 		  }*/
 	
 	public static void main(String[] args){
-	
-		double lat1=12.9293593;
-		double lat2=12.9270167;
-		double lon1=77.6348503;
-		double lon2=77.6377926;
-		double el1=0.0;
-		double el2=0.0;
-	    final int R = 6371; // Radius of the earth
-
-	    double latDistance = Math.toRadians(lat2 - lat1);
-	    double lonDistance = Math.toRadians(lon2 - lon1);
-	    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-	            + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-	            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	    double distance = R * c ; // convert to meters
-
-	    double height = el1 - el2;
-
-	    //distance = Math.pow(distance, 2) + Math.pow(height, 2);
-	    
-	    System.out.println("Distance"+distance);
+		/*String MID = "Wheelc40923916143942"; 
+		 String MercahntKey = "m7XeF8cBlTF9XMnp";
+		 String INDUSTRY_TYPE_ID = "Retail";
+		 String CHANNLE_ID = "WAP";
+		 String WEBSITE = "wheelcare";
+		 String CALLBACK_URL = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp";
+		 
+		 
+		 TreeMap<String,String> paramMap = new TreeMap<String,String>();
+			paramMap.put("MID" , MID);
+			paramMap.put("ORDER_ID" , "WCOrder100008548");
+			paramMap.put("CUST_ID" , "WCUser31");
+			paramMap.put("INDUSTRY_TYPE_ID" , INDUSTRY_TYPE_ID);
+			paramMap.put("CHANNEL_ID" , CHANNLE_ID);
+			paramMap.put("TXN_AMOUNT" ,  "1.00");
+			paramMap.put("WEBSITE" , WEBSITE);
+			paramMap.put("CALLBACK_URL" , CALLBACK_URL);
+			
+			String checkSum="";
+			try{
+				checkSum =  CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(MercahntKey, paramMap);
+			   		System.out.println(checkSum);			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}*/
+	   
 
 	}  
 	

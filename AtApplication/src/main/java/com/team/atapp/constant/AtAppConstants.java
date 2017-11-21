@@ -32,5 +32,18 @@ public class AtAppConstants {
 	public static final String TOKEN_LOGN_ID = "MOBILE_LOGIN";
 	
 	
+	public static final String VERIFIED = "verified";
+	public static final String ACTIVE = "1";
+	public static final String DEACTIVE = "0";
+	public static final String PENDING = "pending";
+	public static final String NOT_ASSIGNED = "not_assigned";
+	public static final String NOT_VERIFIED = "not_verified";
+	public static final String CANCELLED= "cancelled";
+	public static final String DONE = "done";
+	public static final String FREEZE = "freeze";
+	public static final String UNFREEZE = "unfreeze";
+	
+	
+	
 	
 }
